@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wing.member">
+
+	<resultMap type="MemberVo" id="memberResultMap">
+	    <id column="MEMBER_NO" property="memberNo" />
+	    <result column="EMAIL" property="email" />
+	    <result column="NAME" property="memberName" />  	
+	    <result column="PWD" property="password" />
+	    <result column="CRE_DATE" property="createdDate" javaType="java.util.Date" />
+	    <result column="MOD_DATE" property="modifiedDate" javaType="java.util.Date" />
+	    <result column="PHONE" property="phone" /> 
+	    <result column="GRADE" property="grade" /> 
+	    <result column="YEARLY_SALARY" property="yearlySalary" />  
+	    <result column="MONTH_SALARY" property="monthlySalary" />  
+	    <result column="QUIT_APPLY" property="quitApply" /> 
+	    <result column="PRODUCT_PURCHASE" property="productPurchase" /> 
+	</resultMap>
+
+
+	<select id="memberExist" parameterType="map"
+		resultMap="memberResultMap">
+		SELECT MEMBER_NO,MEMBER_NAME, EMAIL
+		FROM MEMBER
+		WHERE EMAIL = #{email}
+		AND PWD = #{pwd}
+	</select>
+
+	
+
+
+
+</mapper>
