@@ -1,16 +1,16 @@
-package com.wing.member.dao;
+package com.wing.auth.dao;
 
 import java.util.List;
 import java.util.Map;
 
-import com.wing.member.domain.MemberVo;
+import com.wing.auth.domain.AuthVo;
 
-public interface MemberDao {
+public interface AuthDao {
 
 //	List<MemberVo> memberSelectList(Map<String, Object> map); 
 	
-
-//	public abstract int memberInsertOne(MemberVo memberVo); 
+	public AuthVo memberExist(String email, String password);
+	public abstract int memberInsertOne(AuthVo authVo); 
 //	public MemberVo memberSelectOne(int no);
 //	public int memberUpdateOne(MemberVo memberVo);
 //	public int memberDeleteOne(int no);

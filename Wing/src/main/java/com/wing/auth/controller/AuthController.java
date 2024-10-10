@@ -1,6 +1,6 @@
-package com.wing.member.controller;
+package com.wing.auth.controller;
 
-
+//auth:로그인,로그아웃,회원가입기능
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,28 +16,66 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.wing.member.domain.MemberVo;
-import com.wing.member.service.MemberService;
+import com.wing.auth.service.AuthService;
+import com.wing.auth.domain.AuthVo;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@RequestMapping("/member")
-@Controller
-public class MemberController {
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
 
-	private Logger log = LoggerFactory.getLogger(MemberController.class);
-	private final String logTitleMsg = "==MemberController==";
+	private Logger log = LoggerFactory.getLogger(AuthController.class);
+	private final String logTitleMsg = "==AuthController==";
 	
-//	@Autowired
-//	private MemberService memberService;
+	@Autowired
+	private AuthService authService;
 	
 	
 	
+	// 로그인 회원정보 조회 및 검증
+	@PostMapping("/login")
+	 public ResponseEntity<?> Login( @RequestBody AuthVo authVo, HttpSession session) {
+		log.info("Welcome MemberController getLogin! "
+	 + authVo.getEmail() + ", " + authVo.getPassword());
+		
+		   AuthVo existingMember 
+		   = authService.memberExist(authVo.getEmail(), authVo.getPassword());
+		
+		
+		
+		if(existingMember != null) {
+		    session.setAttribute("auth", existingMember);
+		    return ResponseEntity.ok().body(existingMember); 
+		 // 로그인 성공 시 200 OK와 함께 사용자 정보 반환
+		}else {
+			// jsp
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password"); // 401 Unauthorized 응답
+		}
+		
+	
+	}
+	
+	@GetMapping("/signin")
+	public String showSignUpPage(Model model) {
+	    return "/auth/Signin.jsp"; // Signin.jsp 페이지를 반환
+	}
+	
+	 @PostMapping("/logout")
+	    public ResponseEntity<String> logout(HttpSession session) {
+	        log.info("logout");
+
+	        session.invalidate(); // 세션 무효화
+	        return ResponseEntity.ok().body("Logged out successfully"); // 200 OK 응답
+	    }
 	
 	
 //	@GetMapping("/list")

@@ -1,0 +1,12 @@
+#main {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+#main-container {
+  height: 93vh;
+  width: 87vw;
+  margin-bottom: 10px;
+}
