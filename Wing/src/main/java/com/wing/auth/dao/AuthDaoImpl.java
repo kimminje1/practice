@@ -35,14 +35,14 @@ public class AuthDaoImpl implements AuthDao {
 	@Override
 	public int memberInsertOne(AuthVo authVo) {
 		// TODO Auto-generated method stub
-		return 0;
+		 return sqlSession.insert(namespace + "memberInsertOne", authVo);
 	}
 
 //	@Override
 //	public int memberInsertOne(MemberVo memberVo) {
 //		// TODO Auto-generated method stub
 //		
-//		return sqlSession.insert(namespace + "memberInsertOne", memberVo);
+//		
 //		
 //	}
 //

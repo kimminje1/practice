@@ -10,9 +10,42 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
     />
-    <link rel="stylesheet" href="/css/common.css" />
-    <link rel="stylesheet" href="/css/signup.css" />
+    <link rel="stylesheet" href="/css/common/common.css" />
+    <link rel="stylesheet" href="/css/auth/signup.css" />
     <script defer src="/js/signup.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#signupForm').on('submit', function (event) {
+            event.preventDefault(); // 기본 제출 방지
+
+            // 폼 데이터를 JSON으로 변환
+            const formData = {
+                email: $('#email').val(),
+                password: $('#pwd').val(),
+                memberName: $('#userName').val(), // 필드 이름 변경
+                phone: $('#phone').val(),
+                yearlySalary: parseInt($('#salary').val().replace(/,/g, '')), // 연봉은 숫자로 변환
+                monthlySalary: parseInt($('#pay').val().replace(/,/g, '')), // 월급은 숫자로 변환
+            };
+
+            // AJAX 요청
+            $.ajax({
+                type: 'POST',
+                url: '/api/auth/signUp', // 요청할 URL
+                contentType: 'application/json', // 요청 타입
+                data: JSON.stringify(formData), // JSON으로 변환
+                success: function (response) {
+    				alert(response); // 성공 시 메시지
+    				  // 성공 후 홈으로 리다이렉트
+    				  window.location.href = "${pageContext.request.contextPath}/"; // 홈으로 이동
+                },
+                error: function (error) {
+                    alert('Error: ' + error.responseText); // 에러 메시지
+                }
+            });
+        });
+    });
+    </script>
   </head>
   <body>
     <div class="title-container">
@@ -23,8 +56,8 @@
       <div class="subject-container bg__red">
         <h2 class="subject text__white">슬기롭게 소비 생활하기</h2>
       </div>
-
-      <form id="signupForm" class="signup-form" action="javascript:void(0);">
+<!-- action="javascript:void(0)"; -->
+      <form id="signupForm" class="signup-form" >
         <div class="signup-container">
           <div class="label-container">
             <label for="email" class="text__white">이메일</label>
@@ -171,4 +204,5 @@
       </form>
     </div>
   </body>
+  <script src="${pageContext.request.contextPath}/js/auth/SignUp.js"></script>
 </html>

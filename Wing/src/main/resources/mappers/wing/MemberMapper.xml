@@ -26,7 +26,16 @@
 		AND PWD = #{password}
 	</select>
 
-	
+	<insert id="memberInsertOne" parameterType="com.wing.auth.domain.AuthVo">
+    INSERT INTO MEMBER (
+        EMAIL,PWD,NAME, PHONE,  GRADE,  YEARLY_SALARY,MONTH_SALARY, CRE_DATE,  MOD_DATE,
+        QUIT_APPLY, PRODUCT_PURCHASE
+    ) VALUES (
+        #{email},#{password},  #{memberName}, #{phone}, {grade}, #{yearlySalary},#{monthlySalary},
+        NOW(), NOW(),#{quitApply},   #{productPurchase}  
+   
+    )
+</insert>
 
 
 

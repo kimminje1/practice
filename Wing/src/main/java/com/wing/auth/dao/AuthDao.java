@@ -10,7 +10,7 @@ public interface AuthDao {
 //	List<MemberVo> memberSelectList(Map<String, Object> map); 
 	
 	public AuthVo memberExist(String email, String password);
-	public abstract int memberInsertOne(AuthVo authVo); 
+	public  int memberInsertOne(AuthVo authVo); 
 //	public MemberVo memberSelectOne(int no);
 //	public int memberUpdateOne(MemberVo memberVo);
 //	public int memberDeleteOne(int no);
