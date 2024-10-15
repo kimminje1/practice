@@ -1,27 +1,51 @@
+// DOM 요소들에 대한 참조
+const $form = $("#signinForm");
 
-$(document).ready(function() {
-	$('#signinForm').on('submit', function(e) {
-		e.preventDefault(); // 기본 폼 제출 방지 로그인용임
+// 커스텀 유효성 검사 메시지
+const messages = {
+  email: "올바른 이메일 형식으로 입력해주세요. (예: wind@gmail.com)",
+  pwd: "올바른 비밀번호 형식으로 입력해주세요. (대소문자 구분 없음, 공백 제외)"
+};
 
-		const email = $('input[name="email"]').val();
-		const password = $('input[name="password"]').val();
-
-		$.ajax({
-			url: 'api/auth/login', // 로그인 API 경로
-			method: 'POST',
-			contentType: 'application/json', // 기본 폼 데이터 전송
-			data: JSON.stringify({
-				email: email,
-				password: password
-			}),
-			success: function(response) {
-				alert('로그인 성공!'); // 성공 메시지
-				// 추가 동작: 메인 페이지로 이동 등
-				window.location.href = '/member/MemberMainPage'; // 메인 페이지로 이동
-			},
-			error: function(xhr) {
-				alert(xhr.responseText); // 실패 메시지 (invalid email or password)
-			}
-		});
-	});
+// 커스텀 유효성 검사 메시지 설정
+$form.find("input").each(function() {
+  $(this).on("invalid", function() {
+    if (!this.validity.valid) {
+      this.setCustomValidity(messages[this.id] || "올바른 값을 입력해주세요.");
+    }
+  }).on("input", function() {
+    this.setCustomValidity("");
+  });
 });
+
+// 폼 제출 이벤트 처리
+$form.on("submit", function(e) {
+  e.preventDefault();
+
+  if (!this.checkValidity()) {
+    this.reportValidity();
+    return;
+  }
+
+  const formData = {};
+  $(this).serializeArray().forEach(function(item) {
+    formData[item.name] = item.value;
+  });
+
+  $.ajax({
+    type: "POST",
+    url: "/api/auth/signin",
+    data: JSON.stringify(formData),
+    contentType: "application/json",
+    dataType: "json",
+    success: function(res) {
+      console.log(res.message);
+    },
+    error: function(xhr, status, error) {
+      console.log(error.message);
+    }
+  });
+});
+
+
+

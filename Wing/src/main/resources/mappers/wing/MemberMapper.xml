@@ -3,18 +3,20 @@
 <mapper namespace="com.wing.auth">
 
 	<resultMap type="com.wing.auth.domain.AuthVo" id="authResultMap">
-	    <id column="MEMBER_NO" property="memberNo" />
-	    <result column="EMAIL" property="email" />
-	    <result column="NAME" property="memberName" />  	
-	    <result column="PWD" property="password" />
-	    <result column="CRE_DATE" property="createdDate" javaType="java.util.Date" />
-	    <result column="MOD_DATE" property="modifiedDate" javaType="java.util.Date" />
-	    <result column="PHONE" property="phone" /> 
-	    <result column="GRADE" property="grade" /> 
-	    <result column="YEARLY_SALARY" property="yearlySalary" />  
-	    <result column="MONTH_SALARY" property="monthlySalary" />  
-	    <result column="QUIT_APPLY" property="quitApply" /> 
-	    <result column="PRODUCT_PURCHASE" property="productPurchase" /> 
+		<id column="MEMBER_NO" property="memberNo" />
+		<result column="EMAIL" property="email" />
+		<result column="NAME" property="memberName" />
+		<result column="PWD" property="password" />
+		<result column="CRE_DATE" property="createdDate"
+			javaType="java.util.Date" />
+		<result column="MOD_DATE" property="modifiedDate"
+			javaType="java.util.Date" />
+		<result column="PHONE" property="phone" />
+		<result column="GRADE" property="grade" />
+		<result column="YEARLY_SALARY" property="yearlySalary" />
+		<result column="MONTH_SALARY" property="monthlySalary" />
+		<result column="QUIT_APPLY" property="quitApply" />
+		<result column="PRODUCT_PURCHASE" property="productPurchase" />
 	</resultMap>
 
 
@@ -27,16 +29,15 @@
 	</select>
 
 	<insert id="memberInsertOne" parameterType="com.wing.auth.domain.AuthVo">
-    INSERT INTO MEMBER (
-        EMAIL,PWD,NAME, PHONE,  GRADE,  YEARLY_SALARY,MONTH_SALARY, CRE_DATE,  MOD_DATE,
-        QUIT_APPLY, PRODUCT_PURCHASE
-    ) VALUES (
-        #{email},#{password},  #{memberName}, #{phone}, {grade}, #{yearlySalary},#{monthlySalary},
-        NOW(), NOW(),#{quitApply},   #{productPurchase}  
-   
-    )
-</insert>
-
+		INSERT INTO MEMBER (
+		MEMBER_NO,EMAIL,PWD,NAME, PHONE, GRADE, YEARLY_SALARY,MONTH_SALARY, CRE_DATE,
+		MOD_DATE,
+		QUIT_APPLY, PRODUCT_PURCHASE
+		) VALUES (
+		MEMBER_NO_SEQ,#{email},#{password}, #{memberName}, #{phone},#{grade},
+		#{yearlySalary},#{monthlySalary},
+		SYSDATE, SYSDATE,#{quitApply}, #{productPurchase})
+	</insert>
 
 
 </mapper>
