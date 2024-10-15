@@ -57,6 +57,18 @@ a {
   color: var(--color-navy);
 }
 
+.text__gray {
+  color: var(--color-gray);
+}
+
+.text__error {
+  color: var(--color-error);
+}
+
+.text__correct {
+  color: var(--color-correct);
+}
+
 /* btn */
 .btn {
   text-align: center;
@@ -114,6 +126,12 @@ a {
 
 .btn__signout {
   text-align: center;
+}
+
+/* help text */
+.help-text {
+  font-size: 14px;
+  margin: 5px;
 }
 
 /* nav */
@@ -224,6 +242,41 @@ footer .cs:hover {
   background-color: var(--btn-red);
 }
 
-/* signup */
+/* signup, signin */
+.title-container {
+  width: 500px;
+  margin: 50px auto 10px;
+}
 
-/* signin */
+.title-container .title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.form-container {
+  width: 520px;
+  margin: 10px auto;
+  padding: 20px 30px;
+}
+
+.form-container .subject-container {
+  width: 400px;
+  margin: 10px auto 35px;
+  padding: 20px;
+}
+
+.form-container .subject-container .subject {
+  text-align: center;
+}
+
+.form-container .signup-form .signup-container,
+.form-container .signin-form .signin-container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+.form-container .signup-form .signup-container .label-container,
+.form-container .signin-form .signin-container .label-container {
+  margin: 10px auto;
+}

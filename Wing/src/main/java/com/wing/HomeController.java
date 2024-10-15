@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/") // 루트 URL 요청 처리 시작시 바로 로그인으로 가게하는 역할
     public String login() {
-        return "member/LoginFormView"; // login.jsp로 이동
+        return "jsp/auth/SignIn"; // login.jsp로 이동
     }
 }

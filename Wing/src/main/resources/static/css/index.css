@@ -1,0 +1,47 @@
+:root {
+  --color--white: #fff;
+  --color--black: #000;
+  --color-coral: #ff6f61;
+  --color-yellow: #ffc107;
+  --color-primary: #001f3f;
+  --color-bg: #49667a;
+}
+
+* {
+  margin: auto;
+  box-sizing: border-box;
+}
+
+/* bg */
+.bg-coral {
+  background-color: var(--color-coral);
+}
+
+.bg-yellow {
+  background-color: var(--color-yellow);
+}
+
+/* text */
+.text--white {
+  color: var(--color--white);
+}
+
+.logo-container .logo {
+  color: var(--color-primary);
+}
+
+.form-container {
+  background-color: var(--color-bg);
+}
+
+.signup--input__l {
+  width: 410px;
+}
+
+.signup--input__m {
+  width: 350px;
+}
+
+.signup--input__s {
+  width: 150px;
+}
