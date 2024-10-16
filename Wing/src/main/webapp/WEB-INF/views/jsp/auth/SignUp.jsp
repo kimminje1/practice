@@ -39,6 +39,7 @@
             placeholder="ex) wing_@gmail.com"
             autocomplete="off"
         />
+           <button type="button" id="checkEmailBtn">이메일 확인</button> <!-- 이메일 검증 버튼 -->
       </div>
     </div>
 
@@ -83,8 +84,8 @@
       </div>
       <div class="input-container">
         <input
-            id="userName"
-            name="userName"
+            id="memberName"
+            name="memberName"
             type="text"
             required
             pattern="[가-힣]{2,7}"

@@ -38,6 +38,15 @@ public class AuthDaoImpl implements AuthDao {
 		 return sqlSession.insert(namespace + "memberInsertOne", authVo);
 	}
 
+
+
+	@Override
+	public Integer findByEmail(String email) {
+		// TODO Auto-generated method stub
+		
+		return sqlSession.selectOne(namespace+"findByEmail",email);
+	}
+
 //	@Override
 //	public int memberInsertOne(MemberVo memberVo) {
 //		// TODO Auto-generated method stub

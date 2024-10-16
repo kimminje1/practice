@@ -55,30 +55,59 @@ public class AuthApiController {
 	}
 
 	// 회원 추가 화면으로
-
 	// 회원 추가 db
 	@PostMapping("/signup")
-	  public ResponseEntity<?> signup(@RequestParam Map<String, String> userInfo) {
-	   // 결과를 담을 map
+	public ResponseEntity<?> signup(@RequestBody AuthVo authVo) {
+	    // 결과를 담을 map
 	    Map<String, String> result = new HashMap<>();
 
-	    // 필수 필드 검증(이메일 중복 체크), 이메일 존재할 경우 message와 함께 return -> if문 사용
-
-
 	    try {
-	      // DB에 insert
-	      System.out.println("userInfo: " + userInfo);
+	    
+	        authVo.setGrade("회원");  // 회원 등급 설정
+	        
+	        // DB에 insert
+	        authService.memberInsertOne(authVo);
 
-	      result.put("status", "success");
-	      result.put("message", "회원가입에 성공했습니다.");
+	        result.put("status", "success");
+	        result.put("message", "회원가입에 성공했습니다.");
 
-	      return ResponseEntity.ok().body(result);
+	        return ResponseEntity.ok().body(result);
 	    } catch (Exception e) {
-	      result.put("status", "failed");
-	      result.put("message", "서버 오류로 인해 회원가입이 처리되지 못했습니다. 다시 한 번 시도해주세요.");
-	      return ResponseEntity.internalServerError().body(result);
+	        log.error("회원가입 중 오류 발생: ", e);
+	        result.put("status", "failed");
+	        result.put("message", "서버 오류로 인해 회원가입이 처리되지 못했습니다. 다시 시도해주세요.");
+	        return ResponseEntity.internalServerError().body(result);
 	    }
-	  }
+	}
+	@PostMapping("/check-email")
+	public ResponseEntity<?> checkEmail(@RequestBody Map<String, String> request) {
+		String email = request.get("email");
+	    Map<String, String> result = new HashMap<>();
+	    log.info("Checking for existing email: {}", email); // 로그 추가
+	    try {
+	    	
+	    	
+	        // 이메일 중복 체크
+	    	Integer existingEmailCount  = authService.findByEmail(email);
+	        if (existingEmailCount != null && existingEmailCount > 0) {
+	            result.put("status", "failed");
+	            result.put("message", "이미 존재하는 이메일입니다.");
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+	        }
+
+	        result.put("status", "success");
+	        result.put("message", "사용 가능한 이메일입니다.");
+	        return ResponseEntity.ok(result);
+	        
+	    } catch (Exception e) {
+	    	 log.error("이메일 검증 중 오류 발생: {}, 이메일: {}", e.getMessage(), email, e);
+	        result.put("status", "failed");
+	        result.put("message", "서버 오류로 인해 이메일 검증이 처리되지 못했습니다. 다시 시도해주세요.");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result); // 500 Internal Server Error 상태 코드
+	  
+	    }
+	}
+
 
 //	@GetMapping("/list")
 //	public String getMemberList(@RequestParam(defaultValue = "all") String searchOption

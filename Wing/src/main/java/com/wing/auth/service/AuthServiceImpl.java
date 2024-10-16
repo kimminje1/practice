@@ -31,6 +31,14 @@ public class AuthServiceImpl implements AuthService {
 		// TODO Auto-generated method stub
 		return authDao.memberInsertOne(authVo);
 	}
+
+
+
+	@Override
+	public Integer findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return authDao.findByEmail(email);
+	}
 	
 //	@Override
 //	public int memberInsertOne(MemberVo memberVo) {
